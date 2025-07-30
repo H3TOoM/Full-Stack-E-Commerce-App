@@ -1,0 +1,84 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  *ngIf="this._Auth.isFormOpen"
+
+  class="fixed top-0 bottom-0 left-0 right-0 z-30 flex items-center text-sm text-gray-600 bg-black/50"
+>
+  <div
+    class="relative flex flex-col gap-4 m-auto items-start p-8 py-12 min-w-80 sm:min-w-88 rounded-lg shadow-xl border border-gray-200 bg-white"
+  >
+    <h1 class="text-2xl font-medium m-auto">
+      <span class="text-primary">User</span>{{ state === 'register' ? ' Sign Up' : ' Login' }}
+    </h1>
+
+    <!-- close button -->
+      <button class="w-full absolute top-2 left-2 cursor-pointer" (click)="closeForm()">
+        <img src="assets/close_icon.svg" alt="Close" class="w-6 h-6"/>
+      </button>
+  
+    <div class="w-full" *ngIf="state == 'register'">
+      <p>Name</p>
+      <input
+        placeholder="Enter your name"
+        class="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+        [class.border-red-500]="form.get('name')?.invalid && form.get('name')?.touched"
+        type="text"
+        name="name"
+        formControlName="name"
+      />
+      <div *ngIf="form.get('name')?.touched && form.get('name')?.errors?.['required']" class="text-red-500 text-xs mt-1">
+        Name is required
+      </div>
+    </div>
+
+    <div class="w-full">
+      <p>Email</p>
+      <input
+        placeholder="Enter your email"
+        class="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+        [class.border-red-500]="form.get('email')?.invalid && form.get('email')?.touched"
+        type="email"
+        name="email"
+        formControlName="email"
+      />
+      <div *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']" class="text-red-500 text-xs mt-1">
+        Email is required
+      </div>
+      <div *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['email']" class="text-red-500 text-xs mt-1">
+        Please enter a valid email address
+      </div>
+    </div>
+
+    <div class="w-full">
+      <p>Password</p>
+      <input
+        placeholder="Enter your password"
+        class="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+        [class.border-red-500]="form.get('password')?.invalid && form.get('password')?.touched"
+        type="password"
+        name="password"
+        formControlName="password"
+      />
+      <div *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']" class="text-red-500 text-xs mt-1">
+        Password is required
+      </div>
+      <div *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['minlength']" class="text-red-500 text-xs mt-1">
+        Password must be at least 6 characters long
+      </div>
+    </div>
+
+    <p>
+      Already have account?
+      <span class="text-primary cursor-pointer" (click)="changeState()">click here</span>
+    </p>
+
+    <button
+      [ngClass]="isLoading ? 'opacity-5 cursor-not-allowed' : 'bg-primary'"
+      class="group text-white w-full py-2 rounded-md cursor-pointer"
+      type="submit"
+    >
+      {{ state === 'register' ? 'Create Account' : 'Login' }}
+    </button>
+  </div>
+</form>
