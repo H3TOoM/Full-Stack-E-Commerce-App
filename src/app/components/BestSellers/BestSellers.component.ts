@@ -22,7 +22,7 @@ export class BestSellersComponent implements OnInit {
   getBestSellers(){
     this._ProductService.getProducts().subscribe({
       next: (response: any) => {
-        this.products = response.$values.slice(0, 5);
+        this.products = response.slice(0, 5); 
         console.log('Best Sellers fetched successfully:', this.products);
       },
       error: (error: any) => {

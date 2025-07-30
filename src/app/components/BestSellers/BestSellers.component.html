@@ -11,10 +11,13 @@
         <img
           class="group-hover:scale-105 transition max-w-26 md:max-w-36"
           alt=""
-          [src]="prd.imageUrl"
-        />
+          src="http://localhost:5180/{{prd.imageUrl}}"
+          />
       </div>
       <div class="text-gray-500/60 text-sm">
+        <p class="capitalize">
+          {{ prd.category.name }}
+        </p>
         <p class="text-gray-700 font-medium text-lg truncate w-full">
           {{ prd.title }}
         </p>
