@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ProductService {
 
   baseUrl = 'http://localhost:5180/api/Product';
-constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
   getProducts() {
@@ -16,6 +16,9 @@ constructor(private http:HttpClient) { }
 
   getProductById(id: number) {
     return this.http.get(`${this.baseUrl}/${id}`);
+  }
+  filterByCategory(name: string) {
+    return this.http.get<any[]>(`${this.baseUrl}/filterByCategory?name=${name}`);
   }
 
   addProduct(product: any) {

@@ -8,7 +8,7 @@
     <!-- Category  -->
     <div
       class="group cursor-pointer py-5 px-3 gap-2 rounded-lg flex flex-col justify-center items-center bg-[#fef6da]"
-      routerLink="all-products/vegetables"
+      (click)="goToCategory('vegitable')"
     >
       <img
         src="assets/organic_vegitable_image.png"
@@ -21,7 +21,7 @@
     <div
       class="group cursor-pointer py-5 px-3 gap-2 rounded-lg flex flex-col justify-center items-center"
       style="background-color: rgb(254, 224, 224)"
-      routerLink="all-products/fruits"
+      (click)="goToCategory('fruits')"
     >
       <img
         class="group-hover:scale-108 transition max-w-28"
@@ -34,7 +34,7 @@
     <div
       class="group cursor-pointer py-5 px-3 gap-2 rounded-lg flex flex-col justify-center items-center"
       style="background-color: rgb(240, 245, 222)"
-      routerLink="all-products/drinks"
+      (click)="goToCategory('drinks')"
     >
       <img
         class="group-hover:scale-108 transition max-w-28"
@@ -47,7 +47,7 @@
     <div
       class="group cursor-pointer py-5 px-3 gap-2 rounded-lg flex flex-col justify-center items-center"
       style="background-color: rgb(225, 245, 236)"
-      routerLink="all-products/snacks"
+      (click)="goToCategory('instant')"
     >
       <img
         class="group-hover:scale-108 transition max-w-28"
@@ -60,7 +60,7 @@
     <div
       class="group cursor-pointer py-5 px-3 gap-2 rounded-lg flex flex-col justify-center items-center"
       style="background-color: rgb(254, 230, 205)"
-      routerLink="all-products/dairy-products"
+      (click)="goToCategory('dairy')"
     >
       <img
         class="group-hover:scale-108 transition max-w-28"
@@ -73,7 +73,7 @@
     <div
       class="group cursor-pointer py-5 px-3 gap-2 rounded-lg flex flex-col justify-center items-center"
       style="background-color: rgb(224, 246, 254)"
-      routerLink="all-products/bakery"
+      (click)="goToCategory('bakery')"
     >
       <img
         class="group-hover:scale-108 transition max-w-28"
@@ -86,7 +86,7 @@
     <div
       class="group cursor-pointer py-5 px-3 gap-2 rounded-lg flex flex-col justify-center items-center"
       style="background-color: rgb(241, 227, 249)"
-      routerLink="all-products/grains"
+      (click)="goToCategory('grains')"
     >
       <img
         class="group-hover:scale-108 transition max-w-28"
