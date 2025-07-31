@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/Product/Product.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CartService } from '../../services/Cart/Cart.service';
 
 @Component({
   selector: 'app-AllProducts',
@@ -13,7 +14,8 @@ export class AllProductsComponent implements OnInit {
   constructor(
     private _ProductService: ProductService,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private _CartService: CartService
   ) {}
 
   categoryName: string = 'All Products';
@@ -76,6 +78,20 @@ export class AllProductsComponent implements OnInit {
     }
   }
 
-  
- 
+  // Add to cart
+  addToCart(id: number, quantity: number = 1) {
+    this._ProductService.addTocart(id, quantity).subscribe({
+      next: (response) => {
+        console.log('success ' + response);
+
+        let totalItems = 0;
+        for (let item of response.items) {
+          totalItems += item.quantity;
+        }
+
+        this._CartService.setCartCount(totalItems);
+      },
+      error: (error) => console.log(error),
+    });
+  }
 }

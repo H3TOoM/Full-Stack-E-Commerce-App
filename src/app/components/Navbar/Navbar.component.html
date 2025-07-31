@@ -73,7 +73,7 @@
           <img src="assets/cart_icon.svg" alt="Cart" class="w-6 opacity-80" />
           <span
             class="absolute -top-2 -right-3 text-xs text-white bg-primary w-4.5 h-4.5 rounded-full text-center"
-            >0</span
+            >{{cartItemsCount}}</span
           >
         </a>
       </div>
@@ -146,7 +146,7 @@
           <div class="flex items-center gap-4">
             <div class="relative cursor-pointer" routerLink="cart" (click)="closeMobileMenu()">
               <img src="assets/cart_icon.svg" alt="Cart" class="w-6 opacity-80" />
-              <span class="absolute -top-2 -right-3 text-xs text-white bg-primary w-4.5 h-4.5 rounded-full text-center">0</span>
+              <span class="absolute -top-2 -right-3 text-xs text-white bg-primary w-4.5 h-4.5 rounded-full text-center">{{cartItemsCount}}</span>
             </div>
             <span class="text-gray-700">Cart</span>
           </div>

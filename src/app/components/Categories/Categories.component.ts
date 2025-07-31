@@ -7,7 +7,6 @@ import { CategoryService } from '../../services/Category/Category.service';
   selector: 'app-Categories',
   templateUrl: './Categories.component.html',
   styleUrls: ['./Categories.component.css'],
-  imports: [RouterLink],
 })
 export class CategoriesComponent implements OnInit {
   constructor(private _Category: CategoryService,

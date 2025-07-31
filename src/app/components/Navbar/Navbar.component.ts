@@ -1,8 +1,16 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/Auth/AuthService.service';
 import { RegisterComponent } from '../Register/Register.component';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgIf } from '@angular/common';
+import { IItem } from '../../models/IItem';
+import { CartService } from '../../services/Cart/Cart.service';
 
 @Component({
   selector: 'app-Navbar',
@@ -12,12 +20,26 @@ import { CommonModule, NgIf } from '@angular/common';
 })
 export class NavbarComponent implements OnInit {
   isMobileMenuOpen = false;
+  cartItemsCount:number = 0
 
-  constructor(private _Auth: AuthService, private cdr: ChangeDetectorRef) {}
+
+  constructor(
+    private _Auth: AuthService,
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _CartService: CartService
+  ) {}
 
   token!: string | null;
   ngOnInit() {
-    this.token = localStorage.getItem('token');
+    if (isPlatformBrowser(this.platformId)) {
+      this.token = localStorage.getItem('token');
+    }
+
+    this._CartService.cartCount$.subscribe(count => {
+    this.cartItemsCount = count;
+  });
+
   }
   openForm() {
     this._Auth.isFormOpen = true;
@@ -41,4 +63,8 @@ export class NavbarComponent implements OnInit {
     this.cdr.detectChanges();
     window.location.reload();
   }
+
+  
+  
+  
 }
