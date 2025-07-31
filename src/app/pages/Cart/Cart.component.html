@@ -1,3 +1,115 @@
-<p>
-  Cart works!
-</p>
+<div class="px-6 md:px-16 lg:px-24 xl:px-32">
+  <div class="flex flex-col md:flex-row mt-12">
+    <div class="flex-1 max-w-4xl">
+      <h1 class="text-3xl font-medium mb-6">
+        Shopping Cart
+        <span class="text-sm text-primary">{{ cartItemsCount }} Items</span>
+      </h1>
+
+      <div
+        class="grid grid-cols-[2fr_1fr_1fr] text-gray-500 text-base font-medium pb-3"
+      >
+        <p class="text-left">Product Details</p>
+        <p class="text-center">Subtotal</p>
+        <p class="text-center">Action</p>
+      </div>
+
+      @for (item of cartItems; track item.id) {
+      <div
+        class="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3"
+      >
+        <div class="flex items-center md:gap-6 gap-3">
+          <div
+            class="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded"
+          >
+            <img
+              class="max-w-full h-full object-cover"
+              alt="{{ item.product.title }}"
+              src="http://localhost:5180/{{ item.product.imageUrl }}"
+            />
+          </div>
+          <div>
+            <p class="hidden md:block font-semibold">
+              {{ item.product.title }}
+            </p>
+            <div class="font-normal text-gray-500/70">
+              <p>Weight: <span>N/A</span></p>
+              <div class="flex items-center">
+                <p>Qty:</p>
+                <select class="outline-none">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-center">{{ item.product.price }} $</p>
+        <button class="cursor-pointer" (click)="deleteItem(item.productId)">
+          <img
+            class="inline-block w-6 h-6"
+            alt="Remove item"
+            src="data:image/svg+xml,%3csvg%20width='20'%20height='20'%20viewBox='0%200%2020%2020'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_3523_924)'%3e%3cpath%20d='M12.4993%207.50033L7.49935%2012.5003M7.49935%207.50033L12.4993%2012.5003M18.3327%2010.0003C18.3327%2014.6027%2014.6017%2018.3337%209.99935%2018.3337C5.39698%2018.3337%201.66602%2014.6027%201.66602%2010.0003C1.66602%205.39795%205.39698%201.66699%209.99935%201.66699C14.6017%201.66699%2018.3327%205.39795%2018.3327%2010.0003Z'%20stroke='%23FF532E'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_3523_924'%3e%3crect%20width='20'%20height='20'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e"
+          />
+        </button>
+      </div>
+      }
+
+      <a
+        class="group cursor-pointer flex items-center mt-8 gap-2 text-primary font-medium"
+        routerLink="/all-products"
+      >
+        <img
+          class="group-hover:-translate-x-1 transition"
+          alt="arrow"
+          src="data:image/svg+xml,%3csvg%20width='15'%20height='11'%20viewBox='0%200%2015%2011'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M14.0909%205.5H1'%20stroke='%234FBF8B'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M6.14286%2010L1%205.5L6.14286%201'%20stroke='%234FBF8B'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+        />Continue Shopping
+      </a>
+    </div>
+    <div class="max-w-90 w-full bg-gray-100 p-5 max-md:mt-16">
+      <h2 class="text-xl md:text-2xl font-medium">Order Summary</h2>
+      <hr class="border-gray-300 my-5" />
+      <div class="mb-6">
+        <p class="text-base font-medium uppercase">Delivery Address</p>
+        <div class="relative flex justify-between items-start mt-2">
+          <p class="text-gray-500">No address found</p>
+          <button class="text-primary hover:underline cursor-pointer">
+            Change
+          </button>
+        </div>
+        <p class="text-base font-medium uppercase mt-6">Payment Method</p>
+        <select
+          class="w-full border border-gray-300 bg-white px-3 py-2 mt-2 outline-none"
+        >
+          <option value="COD">Cash On Delivery</option>
+          <option value="Online">Online Payment</option>
+        </select>
+      </div>
+      <hr class="border-gray-300" />
+      <div class="text-gray-500 mt-4 space-y-2">
+        <p class="flex justify-between"><span>Price</span><span>$45</span></p>
+        <p class="flex justify-between">
+          <span>Shipping Fee</span><span class="text-green-600">Free</span>
+        </p>
+        <p class="flex justify-between">
+          <span>Tax (2%)</span><span>$0.9</span>
+        </p>
+        <p class="flex justify-between text-lg font-medium mt-3">
+          <span>Total Amount:</span><span>$45.9</span>
+        </p>
+      </div>
+      <button
+        class="w-full py-3 mt-6 cursor-pointer bg-primary text-white font-medium hover:bg-primary-dull transition"
+      >
+        Place Order
+      </button>
+    </div>
+  </div>
+</div>

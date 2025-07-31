@@ -3,6 +3,7 @@ import { ProductService } from '../../services/Product/Product.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../services/Cart/Cart.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-AllProducts',
@@ -90,6 +91,14 @@ export class AllProductsComponent implements OnInit {
         }
 
         this._CartService.setCartCount(totalItems);
+
+        // success message
+        Swal.fire({
+          title: 'Added To Cart Successfully',
+          icon: 'success',
+          timer: 1000,
+          showConfirmButton: false,
+        });
       },
       error: (error) => console.log(error),
     });

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ICart } from '../../models/ICart';
+import { IItem } from '../../models/IItem';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ baseUrl:string = 'http://localhost:5180/api/Cart';
     return this.http.get<ICart>(this.baseUrl);
   }
 
+
+  deleteItem(id:number){
+    return this.http.delete(`${this.baseUrl}/remove?productId=${id}`)
+  }
 
 }
