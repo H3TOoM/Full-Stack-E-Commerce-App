@@ -35,18 +35,7 @@
             <div class="font-normal text-gray-500/70">
               <p>Weight: <span>N/A</span></p>
               <div class="flex items-center">
-                <p>Qty:</p>
-                <select class="outline-none">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                </select>
+                <p>Qty: {{item.quantity}}</p>
               </div>
             </div>
           </div>
@@ -79,10 +68,13 @@
       <div class="mb-6">
         <p class="text-base font-medium uppercase">Delivery Address</p>
         <div class="relative flex justify-between items-start mt-2">
-          <p class="text-gray-500">No address found</p>
-          <button class="text-primary hover:underline cursor-pointer">
+          <p class="text-gray-500" *ngIf="!address">No address found</p>
+          <p class="text-gray-500" *ngIf="address">{{address.country}},{{address.city}},{{address.street}}</p>
+          <a 
+          routerLink="/add-address"
+          class="text-primary hover:underline cursor-pointer">
             Change
-          </button>
+          </a>
         </div>
         <p class="text-base font-medium uppercase mt-6">Payment Method</p>
         <select
@@ -94,15 +86,15 @@
       </div>
       <hr class="border-gray-300" />
       <div class="text-gray-500 mt-4 space-y-2">
-        <p class="flex justify-between"><span>Price</span><span>$45</span></p>
+        <p class="flex justify-between"><span>Price</span><span>${{getTotalPrice()}}</span></p>
         <p class="flex justify-between">
           <span>Shipping Fee</span><span class="text-green-600">Free</span>
         </p>
         <p class="flex justify-between">
-          <span>Tax (2%)</span><span>$0.9</span>
+          <span>Tax (2%)</span><span>${{getTax()}}</span>
         </p>
         <p class="flex justify-between text-lg font-medium mt-3">
-          <span>Total Amount:</span><span>$45.9</span>
+          <span>Total Amount:</span><span>${{getTotalAmount()}}</span>
         </p>
       </div>
       <button

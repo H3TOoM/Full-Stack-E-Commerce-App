@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/Auth/AuthService.service';
 import sweetAlert from 'sweetalert2';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-Register',
   templateUrl: './Register.component.html',
@@ -89,8 +90,7 @@ export class RegisterComponent implements OnInit {
             localStorage.setItem('user', JSON.stringify(user));
 
             // Show success message using sweetAlert
-            sweetAlert
-              .fire({
+            Swal.fire({
                 title: 'Registration Successful',
                 text: 'You have successfully registered!',
                 icon: 'success',
@@ -108,7 +108,7 @@ export class RegisterComponent implements OnInit {
             this.isLoading = false;
 
             // Show error message using sweetAlert
-            sweetAlert.fire({
+            Swal.fire({
               title: 'Registration Failed',
               text: 'An error occurred during registration. Please try again.',
               icon: 'error',
@@ -132,7 +132,7 @@ export class RegisterComponent implements OnInit {
             localStorage.setItem('user', JSON.stringify(user));
 
             // Show success message using sweetAlert
-            sweetAlert.fire({
+            Swal.fire({
               title: 'Login Successful',
               text: 'You have successfully logged in!',
               icon: 'success',
@@ -149,7 +149,7 @@ export class RegisterComponent implements OnInit {
             this.isLoading = false;
 
             // Show error message using sweetAlert
-            sweetAlert.fire({
+            Swal.fire({
               title: 'Login Failed',
               text: 'An error occurred during login. Please try again.',
               icon: 'error',

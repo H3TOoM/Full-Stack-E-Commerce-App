@@ -3,16 +3,14 @@ import { Injectable } from '@angular/core';
 import { User } from '../../models/User';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   baseUrl = 'http://localhost:5180/api/Auth';
   isFormOpen: boolean = false;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-
-  register(user : User) {
+  register(user: User) {
     return this.http.post(this.baseUrl + '/register', user);
   }
 
@@ -20,8 +18,11 @@ export class AuthService {
     return this.http.post(this.baseUrl + '/login', { email, password });
   }
 
- getCurrentUser() {
+  getCurrentUser() {
     return this.http.get<User>(this.baseUrl + '/getCurrentUser');
   }
 
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }
