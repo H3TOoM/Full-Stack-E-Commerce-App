@@ -3,6 +3,7 @@ import { ProductService } from '../../services/Product/Product.service';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/Cart/Cart.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-BestSellers',
@@ -14,7 +15,8 @@ export class BestSellersComponent implements OnInit {
   products: any[] = [];
   constructor(
     private _ProductService: ProductService,
-    private _CartService: CartService
+    private _CartService: CartService,
+    private _Router:Router
   ) {
     this.getBestSellers();
   }
@@ -58,4 +60,10 @@ export class BestSellersComponent implements OnInit {
       error: (error) => console.log(error),
     });
   }
+
+
+  goTProductDetails(id:number){
+    this._Router.navigate([`/product-details/${id}`])
+  }
+
 }

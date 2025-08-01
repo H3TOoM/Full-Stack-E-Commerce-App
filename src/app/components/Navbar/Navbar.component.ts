@@ -5,18 +5,18 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/Auth/AuthService.service';
 import { RegisterComponent } from '../Register/Register.component';
-import { CommonModule, isPlatformBrowser, NgIf } from '@angular/common';
-import { IItem } from '../../models/IItem';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CartService } from '../../services/Cart/Cart.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-Navbar',
   templateUrl: './Navbar.component.html',
   styleUrls: ['./Navbar.component.css'],
-  imports: [RouterLink, RegisterComponent, CommonModule, NgIf],
+  imports: [RouterLink, RegisterComponent, CommonModule,FormsModule ],
 })
 export class NavbarComponent implements OnInit {
   isMobileMenuOpen = false;
@@ -27,7 +27,8 @@ export class NavbarComponent implements OnInit {
     private _Auth: AuthService,
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private _CartService: CartService
+    private _CartService: CartService,
+    private _Router:Router
   ) {}
 
   token!: string | null;
@@ -64,6 +65,7 @@ export class NavbarComponent implements OnInit {
     window.location.reload();
   }
 
+  
   
   
   

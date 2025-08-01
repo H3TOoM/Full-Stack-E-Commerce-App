@@ -12,24 +12,18 @@ export class CategoryService {
   baseUrl = 'http://localhost:5180/api/Category';
 
   getCategories():Observable<Category[]> {
-    const token = localStorage.getItem('token');
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.get<Category[]>(this.baseUrl, { headers });
+    return this.http.get<Category[]>(this.baseUrl);
   }
 
-  getCategoryById(id: number) {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  getCategoryById(id: number):Observable<Category> {
+    return this.http.get<Category>(`${this.baseUrl}/${id}`);
   }
 
-  addCategory(category: any) {
+  addCategory(category: Category) {
     return this.http.post(this.baseUrl, category);
   }
 
-  updateCategory(id: number, category: any) {
+  updateCategory(id: number, category: Category) {
     return this.http.put(`${this.baseUrl}/${id}`, category);
   }
 

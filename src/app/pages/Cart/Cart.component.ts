@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Router, RouterLink } from '@angular/router';
 import { IAddress } from '../../models/IAddress';
 import { AddressService } from '../../services/Address/Address.service';
+import { OrderService } from '../../services/Order/Order.service';
 
 @Component({
   selector: 'app-Cart',
@@ -16,9 +17,9 @@ import { AddressService } from '../../services/Address/Address.service';
 export class CartComponent implements OnInit {
   constructor(
     private _CartService: CartService,
-    private cdr: ChangeDetectorRef,
     private _Router: Router,
-    private _AddressService:AddressService
+    private _AddressService: AddressService,
+    private _OrderService:OrderService
   ) {}
   cartItems!: IItem[];
   cartItemsCount: number = 0;
@@ -30,8 +31,7 @@ export class CartComponent implements OnInit {
       this.cartItemsCount = count;
     });
 
-
-    this.getAddress()
+    this.getAddress();
   }
 
   getCartItem() {
@@ -60,40 +60,61 @@ export class CartComponent implements OnInit {
   }
 
   getTotalPrice(): number {
-   return (this.cartItems ?? [])
+    return (this.cartItems ?? [])
       .map((item) => item.product.price * item.quantity)
       .reduce((a, b) => a + b, 0);
   }
 
-  
   getTax(): number {
     const total = this.getTotalPrice();
     const extra = total * 0.02;
-    return extra
+    return extra;
   }
 
-  getTotalAmount(){
-    const price = this.getTotalPrice()
-    const tax = this.getTax()
+  getTotalAmount() {
+    const price = this.getTotalPrice();
+    const tax = this.getTax();
 
-    return price + tax
+    return price + tax;
   }
-
-  
 
   addresses: IAddress[] = [];
-  address!:IAddress
-    getAddress() {
-      this._AddressService.getAddress().subscribe({
-        next: (res) => {
-          this.addresses = res;
-          this.address = this.addresses[0]
-          console.log(this.address);
-        },
-        error: (err) => console.log(err),
+  address!: IAddress;
+  getAddress() {
+    this._AddressService.getAddress().subscribe({
+      next: (res) => {
+        this.addresses = res;
+        this.address = this.addresses[0];
+        console.log(this.address);
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
+  goToOrders() {
+    if (this.cartItems == null) {
+      Swal.fire({
+        title: 'Please Add Item To Cart',
+        icon: 'error',
+        timer: 1000,
+        showConfirmButton: false,
       });
+    } else if (this.addresses == null) {
+      Swal.fire({
+        title: 'Please Add Address',
+        icon: 'error',
+        timer: 1000,
+        showConfirmButton: false,
+      });
+    } else {
+
+      // send items to API 
+      
+
+
+
+
+      this._Router.navigate(['/my-orders']);
     }
-
-    
-
+  }
 }

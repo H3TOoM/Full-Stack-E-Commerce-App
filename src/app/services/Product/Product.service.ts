@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICart } from '../../models/ICart';
+import { Product } from '../../models/Product';
 
 @Injectable({
   providedIn: 'root',
@@ -11,24 +12,25 @@ export class ProductService {
   cartUrl: string = 'http://localhost:5180/api/Cart/add';
   constructor(private http: HttpClient) {}
 
-  getProducts() {
-    return this.http.get(this.baseUrl);
+  getProducts() :Observable<Product[]>{
+    return this.http.get<Product[]>(this.baseUrl);
   }
 
-  getProductById(id: number) {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  getProductById(id: number):Observable<Product> {
+    return this.http.get<Product>(`${this.baseUrl}/${id}`);
   }
+
   filterByCategory(name: string) {
-    return this.http.get<any[]>(
+    return this.http.get<Product[]>(
       `${this.baseUrl}/filterByCategory?name=${name}`
     );
   }
 
-  addProduct(product: any) {
+  addProduct(product: Product) {
     return this.http.post(this.baseUrl, product);
   }
 
-  updateProduct(id: number, product: any) {
+  updateProduct(id: number, product: Product) {
     return this.http.put(`${this.baseUrl}/${id}`, product);
   }
 
@@ -41,5 +43,7 @@ export class ProductService {
     return this.http.post<ICart>(`${this.cartUrl}?productId=${id}&quantity=${quantity}`,null);
   }
 
+
+  
   
 }

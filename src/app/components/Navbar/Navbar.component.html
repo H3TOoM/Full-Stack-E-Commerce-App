@@ -1,5 +1,7 @@
 <header class="relative z-50">
-  <div class="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300">
+  <div
+    class="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300"
+  >
     <!-- logo -->
     <div class="logo">
       <img
@@ -10,31 +12,41 @@
     </div>
 
     <!-- Mobile menu button -->
-    <button 
-      (click)="isMobileMenuOpen = !isMobileMenuOpen" 
+    <button
+      (click)="isMobileMenuOpen = !isMobileMenuOpen"
       class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
       type="button"
       aria-label="Toggle menu"
     >
-      <svg 
-        class="h-6 w-6" 
-        [class.hidden]="isMobileMenuOpen" 
-        xmlns="http://www.w3.org/2000/svg" 
-        fill="none" 
-        viewBox="0 0 24 24" 
+      <svg
+        class="h-6 w-6"
+        [class.hidden]="isMobileMenuOpen"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
         stroke="currentColor"
       >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
       </svg>
-      <svg 
-        class="h-6 w-6" 
-        [class.hidden]="!isMobileMenuOpen" 
-        xmlns="http://www.w3.org/2000/svg" 
-        fill="none" 
-        viewBox="0 0 24 24" 
+      <svg
+        class="h-6 w-6"
+        [class.hidden]="!isMobileMenuOpen"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
         stroke="currentColor"
       >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
       </svg>
     </button>
 
@@ -54,103 +66,95 @@
           </li>
         </ul>
       </nav>
-
-      <!-- search  -->
-      <div
-        class="flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full max-lg:hidden"
-      >
-        <input
-          type="text"
-          placeholder="Search products..."
-          class="py-1.5 w-full bg-transparent outline-none placeholder-gray-500"
-        />
-        <img src="assets/search_icon.svg" alt="" class="w-4 h-4" />
-      </div>
-
+      
       <!-- login and cart -->
       <div class="relative cursor-pointer flex items-center" routerLink="cart">
         <a>
           <img src="assets/cart_icon.svg" alt="Cart" class="w-6 opacity-80" />
           <span
             class="absolute -top-2 -right-3 text-xs text-white bg-primary w-4.5 h-4.5 rounded-full text-center"
-            >{{cartItemsCount}}</span
+            >{{ cartItemsCount }}</span
           >
         </a>
       </div>
       <button
         (click)="openForm()"
-        *ngIf="!token;else userIcon"
+        *ngIf="!token; else userIcon"
         class="group cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full"
       >
         login
       </button>
       <ng-template #userIcon>
         <div class="relative group">
-        <img class="w-10" alt="" src="assets/profile_icon.png"/>
-        <ul style="z-index:1 !important;"
-          class="hidden group-hover:block absolute top-10 right-0 bg-white shadow border border-gray-200 py-2.5 w-30 rounded-md text-sm z-40"
-        >
-          <li class="p-1.5 pl-3 hover:bg-primary/10 cursor-pointer">
-            My Orders
-          </li>
-          <li class="p-1.5 pl-3 hover:bg-primary/10 cursor-pointer" (click)="logout()">Logout</li>
-        </ul>
-      </div>
+          <img class="w-10" alt="" src="assets/profile_icon.png" />
+          <ul
+            style="z-index: 1 !important"
+            class="hidden group-hover:block absolute top-10 right-0 bg-white shadow border border-gray-200 py-2.5 w-30 rounded-md text-sm z-40"
+          >
+            <li class="p-1.5 pl-3 hover:bg-primary/10 cursor-pointer">
+              My Orders
+            </li>
+            <li
+              class="p-1.5 pl-3 hover:bg-primary/10 cursor-pointer"
+              (click)="logout()"
+            >
+              Logout
+            </li>
+          </ul>
+        </div>
       </ng-template>
-      
     </div>
   </div>
 
   <!-- Mobile menu, shown/hidden based on isMobileMenuOpen state -->
-  <div 
-    *ngIf="isMobileMenuOpen"
-    class="md:hidden bg-white shadow-lg"
-  >
+  <div *ngIf="isMobileMenuOpen" class="md:hidden bg-white shadow-lg">
     <div class="px-6 pt-2 pb-4 space-y-1 bg-white shadow-lg">
-      <!-- Search Bar for Mobile -->
-      <div class="flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full mb-4">
-        <input
-          type="text"
-          placeholder="Search products..."
-          class="py-2 w-full bg-transparent outline-none placeholder-gray-500"
-        />
-        <img src="assets/search_icon.svg" alt="" class="w-4 h-4" />
-      </div>
-
+      
       <!-- Mobile Navigation Links -->
-      <a 
+      <a
         (click)="closeMobileMenu()"
-        routerLink="" 
+        routerLink=""
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
       >
         Home
       </a>
-      <a 
+      <a
         (click)="closeMobileMenu()"
-        routerLink="all-products" 
+        routerLink="all-products"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
       >
         All Products
       </a>
-      <a 
+      <a
         (click)="closeMobileMenu()"
-        routerLink="seller" 
+        routerLink="seller"
         class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
       >
         Seller Dashboard
       </a>
-      
+
       <!-- Mobile User Actions -->
       <div class="pt-4 border-t border-gray-200 mt-4">
         <div class="flex items-center justify-between px-3 py-2">
           <div class="flex items-center gap-4">
-            <div class="relative cursor-pointer" routerLink="cart" (click)="closeMobileMenu()">
-              <img src="assets/cart_icon.svg" alt="Cart" class="w-6 opacity-80" />
-              <span class="absolute -top-2 -right-3 text-xs text-white bg-primary w-4.5 h-4.5 rounded-full text-center">{{cartItemsCount}}</span>
+            <div
+              class="relative cursor-pointer"
+              routerLink="cart"
+              (click)="closeMobileMenu()"
+            >
+              <img
+                src="assets/cart_icon.svg"
+                alt="Cart"
+                class="w-6 opacity-80"
+              />
+              <span
+                class="absolute -top-2 -right-3 text-xs text-white bg-primary w-4.5 h-4.5 rounded-full text-center"
+                >{{ cartItemsCount }}</span
+              >
             </div>
             <span class="text-gray-700">Cart</span>
           </div>
-          
+
           <ng-container *ngIf="!token; else mobileUserMenu">
             <button
               (click)="openForm()"
@@ -159,28 +163,32 @@
               Login
             </button>
           </ng-container>
-          
+
           <ng-template #mobileUserMenu>
             <div class="flex items-center gap-2">
               <span class="text-gray-700">My Account</span>
               <div class="relative">
-                <img class="w-8 h-8 rounded-full" src="assets/profile_icon.png" alt="Profile" />
+                <img
+                  class="w-8 h-8 rounded-full"
+                  src="assets/profile_icon.png"
+                  alt="Profile"
+                />
               </div>
             </div>
           </ng-template>
         </div>
-        
+
         <ng-container *ngIf="token">
           <div class="mt-3 pt-3 border-t border-gray-200">
-            <a 
-              href="#" 
+            <a
+              href="#"
               class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
               (click)="closeMobileMenu()"
             >
               My Orders
             </a>
-            <a 
-              href="#" 
+            <a
+              href="#"
               class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
               (click)="logout()"
             >

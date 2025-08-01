@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/Product/Product.service';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../services/Cart/Cart.service';
 import Swal from 'sweetalert2';
 
@@ -16,7 +16,8 @@ export class AllProductsComponent implements OnInit {
     private _ProductService: ProductService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private _CartService: CartService
+    private _CartService: CartService,
+    private _Router:Router
   ) {}
 
   categoryName: string = 'All Products';
@@ -39,8 +40,6 @@ export class AllProductsComponent implements OnInit {
     this._ProductService.getProducts().subscribe({
       next: (response: any) => {
         this.products = response;
-        // Log the products to the console for debugging
-        console.log('Products fetched successfully:', this.products);
       },
       error: (error: any) => {
         console.error('Error fetching products:', error);
@@ -64,10 +63,6 @@ export class AllProductsComponent implements OnInit {
           // Log the filtered products to the console for debugging
           this.categoryName = name; // Update the category name
           this.cdr.detectChanges(); // Ensure the view updates after filtering
-          console.log(
-            `Products filtered by category "${name}":`,
-            this.products
-          );
         },
         error: (error: any) => {
           console.error(
@@ -78,6 +73,7 @@ export class AllProductsComponent implements OnInit {
       });
     }
   }
+
 
   // Add to cart
   addToCart(id: number, quantity: number = 1) {
@@ -103,4 +99,11 @@ export class AllProductsComponent implements OnInit {
       error: (error) => console.log(error),
     });
   }
+
+
+  goTProductDetails(id:number){
+    this._Router.navigate([`/product-details/${id}`])
+  }
+
+
 }
