@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/User';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,11 @@ export class AuthService {
   baseUrl = 'http://localhost:5180/api/Auth';
   isFormOpen: boolean = false;
   constructor(private http: HttpClient) {}
+
+
+
+  private userLoggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
+  public IsLoggedIn$ = this.userLoggedIn.asObservable();
 
   register(user: User) :Observable<any> {
     return this.http.post<any>(this.baseUrl + '/register', user);
@@ -26,4 +31,15 @@ export class AuthService {
     }
     return false;
   }
+
+   setLoginStatus(status: boolean) {
+    this.userLoggedIn.next(status);
+  }
+
+  logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  this.setLoginStatus(false);
+}
+
 }

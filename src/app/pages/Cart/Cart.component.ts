@@ -71,6 +71,36 @@ export class CartComponent implements OnInit {
     });
   }
 
+  clearCart() {
+    if (this.cartItems.length == 0) {
+      Swal.fire({
+        title: 'No Items In This Cart!',
+        icon: 'error',
+        timer: 1000,
+        showConfirmButton: false,
+      });
+
+      return;
+    }
+
+    this._CartService.clearCart().subscribe({
+      next: (res) => {
+        Swal.fire({
+          title: 'Cart Cleared Successfully',
+          icon: 'success',
+          timer: 1000,
+          showConfirmButton: false,
+        });
+
+        // Update Ui
+        this.getCartItem();
+
+        this._CartService.setCartCount(0);
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
   getTotalPrice(): number {
     return (this.cartItems ?? [])
       .map((item) => item.product.price * item.quantity)
@@ -137,6 +167,7 @@ export class CartComponent implements OnInit {
           timer: 1000,
           showConfirmButton: false,
         });
+        this.clearCart();
         this._Router.navigate(['/my-orders']);
       },
       error: (err) => console.log(err),
@@ -144,7 +175,7 @@ export class CartComponent implements OnInit {
   }
 
   goToOrders() {
-    if (this.cartItems == null) {
+    if (this.cartItems.length === 0) {
       Swal.fire({
         title: 'Please Add Item To Cart!',
         icon: 'error',
@@ -153,7 +184,9 @@ export class CartComponent implements OnInit {
       });
 
       return;
-    } else if (this.addresses == null) {
+    }
+
+    if (this.addresses.length === 0) {
       Swal.fire({
         title: 'Please Add Address!',
         icon: 'error',
@@ -162,16 +195,10 @@ export class CartComponent implements OnInit {
       });
 
       return;
-    } else {
-      // clear cart
-      this._CartService.clearCart().subscribe({
-        next: (res) => {
-          console.log('cart Removed Successfully' + res);
-        },
-        error: (err) => console.log(err),
-      });
-      // call placeOrder method
-      this.placeOrder(this.cart);
     }
+
+    // call placeOrder method
+    this.placeOrder(this.cart);
+
   }
 }

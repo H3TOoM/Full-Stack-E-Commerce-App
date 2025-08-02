@@ -58,7 +58,6 @@ export class RelatedProductsComponent implements OnInit {
     this._ProductService.filterByCategory(name).subscribe({
       next: (res) => {
         this.relatedProducts = res;
-        console.log(this.relatedProducts);
       },
       error: (err) => console.log(err),
     });
@@ -68,7 +67,6 @@ export class RelatedProductsComponent implements OnInit {
     addToCart(id: number, quantity: number = 1) {
       this._ProductService.addTocart(id, quantity).subscribe({
         next: (response) => {
-          console.log('success ' + response);
   
           // Fetch total items count
           let totalItems = 0;

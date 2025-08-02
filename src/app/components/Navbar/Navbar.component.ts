@@ -31,11 +31,15 @@ export class NavbarComponent implements OnInit {
     private _Router:Router
   ) {}
 
-  token!: string | null;
+  isLoggedIn = false;
+
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.token = localStorage.getItem('token');
-    }
+    
+
+     this._Auth.IsLoggedIn$.subscribe(status => {
+    this.isLoggedIn = status;
+    this.cdr.detectChanges();    
+  });
 
     this._CartService.cartCount$.subscribe(count => {
     this.cartItemsCount = count;
@@ -58,12 +62,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.token = null;
-    this.cdr.detectChanges();
-    window.location.reload();
-  }
+  this._Auth.logout(); // دي اللي ضفناها في AuthService
+  this.closeMobileMenu();
+}
 
   
   

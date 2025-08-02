@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/Product/Product.service';
 import { Product } from '../../models/Product';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { Category } from '../../models/Category';
   styleUrls: ['./ProductDetails.component.css'],
   imports: [RelatedProductsComponent],
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit ,AfterViewInit{
   constructor(
     private _ProductService: ProductService,
     private _CartService: CartService,
@@ -27,6 +27,10 @@ export class ProductDetailsComponent implements OnInit {
       if(id)
         this.getProduct(id);
     })
+  }
+
+  ngAfterViewInit() {
+      
   }
 
   product!: Product;

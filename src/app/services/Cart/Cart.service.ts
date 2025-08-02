@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ICart } from '../../models/ICart';
-import { IItem } from '../../models/IItem';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +35,11 @@ export class CartService {
     return this.http.delete(`${this.baseUrl}/remove?productId=${id}`);
   }
 
-  clearCart(){
-    return this.http.delete(this.baseUrl + '/clear')
+  clearCart(): Observable<any> {
+    return this.http.delete(this.baseUrl + '/clear').pipe(
+      tap(() => {
+        this.cartCount.next(0);
+      })
+    );
   }
 }

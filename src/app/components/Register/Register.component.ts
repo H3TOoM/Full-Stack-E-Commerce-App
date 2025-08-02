@@ -7,7 +7,6 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { AuthService } from '../../services/Auth/AuthService.service';
-import sweetAlert from 'sweetalert2';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-Register',
@@ -26,28 +25,27 @@ export class RegisterComponent implements OnInit {
     ]),
   });
 
-  state: string = 'register'; 
+  state: string = 'register';
   isLoading: boolean = false;
-  cdr: ChangeDetectorRef;
 
-  changeState(){
+  changeState() {
     this.state = this.state === 'register' ? 'login' : 'register';
     this.form.reset();
     this.initForm();
     this.cdr.detectChanges();
   }
-  constructor(public _Auth: AuthService,cdr: ChangeDetectorRef) {
-    this.cdr = cdr;
-  }
+  constructor(public _Auth: AuthService, private cdr: ChangeDetectorRef) {}
 
   closeForm() {
     this._Auth.isFormOpen = false;
     this.initForm();
     this.cdr.detectChanges();
-    }
+  }
 
   ngOnInit() {
     this.initForm();
+
+    
   }
 
   initForm() {
@@ -74,7 +72,8 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       // Extract values from the form
-      const { name, email, password } = this.form.value;
+      const { email, password } = this.form.value;
+      const name = this.state === 'register' ? this.form.value.name : null;
 
       // Perform registration or login based on the state
       if (this.state === 'register') {
@@ -91,16 +90,16 @@ export class RegisterComponent implements OnInit {
 
             // Show success message using sweetAlert
             Swal.fire({
-                title: 'Registration Successful',
-                text: 'You have successfully registered!',
-                icon: 'success',
-                confirmButtonText: 'OK',
-              })
-              .then(() => {
-                this.closeForm();
-              });
+              title: 'Registration Successful',
+              text: 'You have successfully registered!',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            }).then(() => {
+              this.closeForm();
+              this._Auth.setLoginStatus(true);
+            });
 
-              window.location.reload();
+            window.location.reload();
             console.log('Registration successful', response);
           },
           error: (error: any) => {
@@ -131,18 +130,20 @@ export class RegisterComponent implements OnInit {
             const user = response.user;
             localStorage.setItem('user', JSON.stringify(user));
 
+            this._Auth.setLoginStatus(true);
+
             // Show success message using sweetAlert
             Swal.fire({
               title: 'Login Successful',
               text: 'You have successfully logged in!',
               icon: 'success',
               confirmButtonText: 'OK',
-            })
-            .then(() => {
+            }).then(() => {
               this.closeForm();
             });
 
-            window.location.reload();
+            // Update UI
+            this.cdr.detectChanges();
           },
           error: (error: any) => {
             // console.error('Login failed', error);
@@ -159,7 +160,6 @@ export class RegisterComponent implements OnInit {
         });
       }
       this.form.reset();
-      this.state = 'register'; // Reset to register state after submission
       console.log('Form submitted successfully', this.form.value);
     } else {
       console.log('Form is invalid', this.form.errors);
