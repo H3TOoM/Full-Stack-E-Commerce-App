@@ -7,6 +7,8 @@ import { Router, RouterLink } from '@angular/router';
 import { IAddress } from '../../models/IAddress';
 import { AddressService } from '../../services/Address/Address.service';
 import { OrderService } from '../../services/Order/Order.service';
+import { IOrderRequest } from '../../models/IOrderRequest';
+import { ICart } from '../../models/ICart';
 
 @Component({
   selector: 'app-Cart',
@@ -19,12 +21,14 @@ export class CartComponent implements OnInit {
     private _CartService: CartService,
     private _Router: Router,
     private _AddressService: AddressService,
-    private _OrderService:OrderService
+    private _OrderService: OrderService
   ) {}
+  cart!: ICart;
   cartItems!: IItem[];
   cartItemsCount: number = 0;
 
   ngOnInit() {
+    this.getCart();
     this.getCartItem();
 
     this._CartService.cartCount$.subscribe((count) => {
@@ -34,11 +38,19 @@ export class CartComponent implements OnInit {
     this.getAddress();
   }
 
+  getCart() {
+    this._CartService.getCart().subscribe({
+      next: (res: ICart) => {
+        this.cart = res;
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
   getCartItem() {
     this._CartService.getCartItem().subscribe({
       next: (res) => {
         this.cartItems = res.items;
-        console.log(this.cartItems);
       },
       error: (error) => console.log(error),
     });
@@ -85,7 +97,47 @@ export class CartComponent implements OnInit {
       next: (res) => {
         this.addresses = res;
         this.address = this.addresses[0];
-        console.log(this.address);
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
+  placeOrder(cart: ICart) {
+    // get order items detailts to post in API
+    const orderItems = cart.items.map((item) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+    }));
+
+    // defination order
+    const order: IOrderRequest = {
+      orderDate: new Date().toISOString(),
+      status: 'Pending',
+      orderItems: orderItems,
+      totalAmount: this.getTotalAmount(),
+    };
+
+    if (order.orderItems.length === 0) {
+      Swal.fire({
+        title: 'Please Add Product To Cart!',
+        icon: 'error',
+        timer: 1000,
+        showConfirmButton: false,
+      });
+
+      return;
+    }
+
+    // Subscribe to service
+    this._OrderService.createOrder(order).subscribe({
+      next: (res) => {
+        Swal.fire({
+          title: 'Order Created Successfully!',
+          icon: 'success',
+          timer: 1000,
+          showConfirmButton: false,
+        });
+        this._Router.navigate(['/my-orders']);
       },
       error: (err) => console.log(err),
     });
@@ -94,27 +146,32 @@ export class CartComponent implements OnInit {
   goToOrders() {
     if (this.cartItems == null) {
       Swal.fire({
-        title: 'Please Add Item To Cart',
+        title: 'Please Add Item To Cart!',
         icon: 'error',
         timer: 1000,
         showConfirmButton: false,
       });
+
+      return;
     } else if (this.addresses == null) {
       Swal.fire({
-        title: 'Please Add Address',
+        title: 'Please Add Address!',
         icon: 'error',
         timer: 1000,
         showConfirmButton: false,
       });
+
+      return;
     } else {
-
-      // send items to API 
-      
-
-
-
-
-      this._Router.navigate(['/my-orders']);
+      // clear cart
+      this._CartService.clearCart().subscribe({
+        next: (res) => {
+          console.log('cart Removed Successfully' + res);
+        },
+        error: (err) => console.log(err),
+      });
+      // call placeOrder method
+      this.placeOrder(this.cart);
     }
   }
 }

@@ -5,16 +5,19 @@ import { ICart } from '../../models/ICart';
 import { IItem } from '../../models/IItem';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
+  constructor(private http: HttpClient) {}
 
-constructor(private http:HttpClient) { }
-
-baseUrl:string = 'http://localhost:5180/api/Cart';
+  baseUrl: string = 'http://localhost:5180/api/Cart';
 
   private cartCount = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCount.asObservable();
+
+  getCart(): Observable<ICart> {
+    return this.http.get<ICart>(this.baseUrl);
+  }
 
   setCartCount(count: number) {
     this.cartCount.next(count);
@@ -24,13 +27,15 @@ baseUrl:string = 'http://localhost:5180/api/Cart';
     return this.cartCount.value;
   }
 
-  getCartItem():Observable<ICart>{
+  getCartItem(): Observable<ICart> {
     return this.http.get<ICart>(this.baseUrl);
   }
 
-
-  deleteItem(id:number){
-    return this.http.delete(`${this.baseUrl}/remove?productId=${id}`)
+  deleteItem(id: number) {
+    return this.http.delete(`${this.baseUrl}/remove?productId=${id}`);
   }
 
+  clearCart(){
+    return this.http.delete(this.baseUrl + '/clear')
+  }
 }

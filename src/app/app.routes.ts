@@ -6,6 +6,7 @@ import { AddAddressComponent } from './pages/AddAddress/AddAddress.component';
 import { authGuard } from './guards/auth-guard';
 import { SellerComponent } from './pages/Seller/Seller.component';
 import { ProductDetailsComponent } from './pages/ProductDetails/ProductDetails.component';
+import { MyOrdersComponent } from './pages/MyOrders/MyOrders.component';
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -14,5 +15,6 @@ export const routes: Routes = [
     {path:'cart',component:CartComponent,canActivate:[authGuard]},
     {path:'all-products/category',component:AllProductsComponent},
     {path:'add-address',component:AddAddressComponent},
-    {path:'seller' , component:SellerComponent , canActivate:[authGuard]}
+    {path:'seller' , component:SellerComponent , canActivate:[authGuard]},
+    {path:'my-orders' , component:MyOrdersComponent , canActivate:[authGuard]}
 ];

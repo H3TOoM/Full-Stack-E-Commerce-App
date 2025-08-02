@@ -91,7 +91,9 @@
             style="z-index: 1 !important"
             class="hidden group-hover:block absolute top-10 right-0 bg-white shadow border border-gray-200 py-2.5 w-30 rounded-md text-sm z-40"
           >
-            <li class="p-1.5 pl-3 hover:bg-primary/10 cursor-pointer">
+            <li 
+            routerLink="/my-orders"
+            class="p-1.5 pl-3 hover:bg-primary/10 cursor-pointer" >
               My Orders
             </li>
             <li
@@ -181,7 +183,7 @@
         <ng-container *ngIf="token">
           <div class="mt-3 pt-3 border-t border-gray-200">
             <a
-              href="#"
+              routerLink="/my-orders"
               class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
               (click)="closeMobileMenu()"
             >

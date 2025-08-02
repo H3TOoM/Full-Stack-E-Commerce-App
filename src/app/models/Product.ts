@@ -1,3 +1,5 @@
+import { IOrderItem } from "./IOrderItem";
+
 export interface Product {
   id: number;
   title: string;
@@ -5,4 +7,5 @@ export interface Product {
   price: number;
   imageUrl: string;
   categoryId: number;
+  orderItems?:IOrderItem[]
 }

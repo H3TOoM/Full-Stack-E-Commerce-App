@@ -27,7 +27,6 @@ export class BestSellersComponent implements OnInit {
     this._ProductService.getProducts().subscribe({
       next: (response: any) => {
         this.products = response.slice(0, 5);
-        console.log('Best Sellers fetched successfully:', this.products);
       },
       error: (error: any) => {
         console.error('Error fetching best sellers:', error);
@@ -39,7 +38,6 @@ export class BestSellersComponent implements OnInit {
   addToCart(id: number, quantity: number = 1) {
     this._ProductService.addTocart(id, quantity).subscribe({
       next: (response) => {
-        console.log('success ' + response);
 
         // Fetch total items count
         let totalItems = 0;

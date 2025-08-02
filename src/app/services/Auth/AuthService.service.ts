@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/User';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,19 +11,19 @@ export class AuthService {
   isFormOpen: boolean = false;
   constructor(private http: HttpClient) {}
 
-  register(user: User) {
-    return this.http.post(this.baseUrl + '/register', user);
+  register(user: User) :Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/register', user);
   }
 
-  login(email: string, password: string) {
-    return this.http.post(this.baseUrl + '/login', { email, password });
+  login(email: string, password: string) :Observable<any>{
+    return this.http.post<any>(this.baseUrl + '/login', { email, password });
   }
 
-  getCurrentUser() {
-    return this.http.get<User>(this.baseUrl + '/getCurrentUser');
-  }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    if (typeof window !== 'undefined' && localStorage.getItem('token')) {
+      return true;
+    }
+    return false;
   }
 }
