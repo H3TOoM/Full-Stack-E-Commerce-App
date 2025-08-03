@@ -16,35 +16,31 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-Navbar',
   templateUrl: './Navbar.component.html',
   styleUrls: ['./Navbar.component.css'],
-  imports: [RouterLink, RegisterComponent, CommonModule,FormsModule ],
+  imports: [RouterLink, RegisterComponent, CommonModule, FormsModule],
 })
 export class NavbarComponent implements OnInit {
   isMobileMenuOpen = false;
-  cartItemsCount:number = 0
-
+  cartItemsCount: number = 0;
 
   constructor(
     private _Auth: AuthService,
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object,
     private _CartService: CartService,
-    private _Router:Router
+    private _Router: Router
   ) {}
 
   isLoggedIn = false;
 
   ngOnInit() {
-    
+    this._Auth.IsLoggedIn$.subscribe((status) => {
+      this.isLoggedIn = status;
+      this.cdr.detectChanges();
+    });
 
-     this._Auth.IsLoggedIn$.subscribe(status => {
-    this.isLoggedIn = status;
-    this.cdr.detectChanges();    
-  });
-
-    this._CartService.cartCount$.subscribe(count => {
-    this.cartItemsCount = count;
-  });
-
+    this._CartService.cartCount$.subscribe((count) => {
+      this.cartItemsCount = count;
+    });
   }
   openForm() {
     this._Auth.isFormOpen = true;
@@ -62,12 +58,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-  this._Auth.logout(); // دي اللي ضفناها في AuthService
-  this.closeMobileMenu();
-}
-
-  
-  
-  
-  
+    this._Auth.logout(); // دي اللي ضفناها في AuthService
+    this.closeMobileMenu();
+  }
 }

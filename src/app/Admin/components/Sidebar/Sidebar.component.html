@@ -1,0 +1,40 @@
+<div
+  class="md:w-64 w-16 border-r h-[95vh] text-base border-gray-300 py-2 flex flex-col"
+>
+  <a
+    class="flex items-center py-3 px-4 gap-3 hover:bg-gray-100/90 border-white"
+    routerLink="/seller"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    data-discover="true"
+    ><img
+      alt=""
+      class="w-7 h-7"
+      src="assets/add_icon.svg"
+      />
+    <p class="md:block hidden text-center">Add Product</p></a
+  ><a
+    class="flex items-center py-3 px-4 gap-3"
+    routerLink="/seller/product-list"
+    routerLinkActive="active"
+    data-discover="true"
+    aria-current="page"
+    ><img
+      alt=""
+      class="w-7 h-7"
+      src="assets/product_list_icon.svg"
+      />
+    <p class="md:block hidden text-center">Product List</p></a
+  ><a
+    class="flex items-center py-3 px-4 gap-3 hover:bg-gray-100/90 border-white"
+    routerLink="/seller/all-orders"
+    routerLinkActive="active"
+    data-discover="true"
+    ><img
+      alt=""
+      class="w-7 h-7"
+      src="assets/order_icon.svg"
+      />
+    <p class="md:block hidden text-center">Orders</p></a
+  >
+</div>

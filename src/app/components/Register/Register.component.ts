@@ -44,8 +44,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-
-    
   }
 
   initForm() {
@@ -91,15 +89,15 @@ export class RegisterComponent implements OnInit {
             // Show success message using sweetAlert
             Swal.fire({
               title: 'Registration Successful',
-              text: 'You have successfully registered!',
               icon: 'success',
-              confirmButtonText: 'OK',
+              showConfirmButton: false,
             }).then(() => {
               this.closeForm();
               this._Auth.setLoginStatus(true);
             });
 
-            window.location.reload();
+            this._Auth.setLoginStatus(true);
+
             console.log('Registration successful', response);
           },
           error: (error: any) => {
@@ -109,9 +107,8 @@ export class RegisterComponent implements OnInit {
             // Show error message using sweetAlert
             Swal.fire({
               title: 'Registration Failed',
-              text: 'An error occurred during registration. Please try again.',
               icon: 'error',
-              confirmButtonText: 'OK',
+              showConfirmButton: false,
             });
             console.error('Registration failed', error);
           },
@@ -135,9 +132,8 @@ export class RegisterComponent implements OnInit {
             // Show success message using sweetAlert
             Swal.fire({
               title: 'Login Successful',
-              text: 'You have successfully logged in!',
               icon: 'success',
-              confirmButtonText: 'OK',
+              showConfirmButton: false,
             }).then(() => {
               this.closeForm();
             });
@@ -152,17 +148,22 @@ export class RegisterComponent implements OnInit {
             // Show error message using sweetAlert
             Swal.fire({
               title: 'Login Failed',
-              text: 'An error occurred during login. Please try again.',
               icon: 'error',
-              confirmButtonText: 'OK',
+              showConfirmButton: false,
             });
           },
         });
       }
       this.form.reset();
-      console.log('Form submitted successfully', this.form.value);
+      // console.log('Form submitted successfully', this.form.value);
     } else {
-      console.log('Form is invalid', this.form.errors);
+      // console.log('Form is invalid', this.form.errors);
+
+      Swal.fire({
+        title: 'Form Is Invalid',
+        icon: 'error',
+        showConfirmButton: false,
+      });
     }
     this.cdr.detectChanges();
   }

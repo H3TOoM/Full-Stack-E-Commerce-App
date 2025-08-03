@@ -1,0 +1,12 @@
+@if (isAdminLoggedIn) {
+<app-Navbar></app-Navbar>
+
+<div class="flex w-full">
+  <app-Sidebar></app-Sidebar>
+  <router-outlet></router-outlet>
+</div>
+} @else {
+
+<app-AdminLogin></app-AdminLogin>
+
+}

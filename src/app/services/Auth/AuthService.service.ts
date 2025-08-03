@@ -9,21 +9,22 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthService {
   baseUrl = 'http://localhost:5180/api/Auth';
   isFormOpen: boolean = false;
+  isAdmin: boolean = false;
   constructor(private http: HttpClient) {}
-
-
 
   private userLoggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
   public IsLoggedIn$ = this.userLoggedIn.asObservable();
 
-  register(user: User) :Observable<any> {
+  private adminLoggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
+  public IsAdminLoggedIn$ = this.adminLoggedIn.asObservable();
+
+  register(user: User): Observable<any> {
     return this.http.post<any>(this.baseUrl + '/register', user);
   }
 
-  login(email: string, password: string) :Observable<any>{
+  login(email: string, password: string): Observable<any> {
     return this.http.post<any>(this.baseUrl + '/login', { email, password });
   }
-
 
   isLoggedIn(): boolean {
     if (typeof window !== 'undefined' && localStorage.getItem('token')) {
@@ -32,14 +33,17 @@ export class AuthService {
     return false;
   }
 
-   setLoginStatus(status: boolean) {
+  setLoginStatus(status: boolean) {
     this.userLoggedIn.next(status);
   }
 
-  logout() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-  this.setLoginStatus(false);
-}
+  setLoginAdminStatus(status : boolean) {
+    this.adminLoggedIn.next(status);
+  }
 
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setLoginStatus(false);
+  }
 }
