@@ -12,8 +12,16 @@ export class OrderService {
 
   baseUrl: string = 'http://localhost:5180/api/Order';
 
+
+
+  // user orders
   getOrders(): Observable<IOrderResponse[]> {
     return this.http.get<IOrderResponse[]>(this.baseUrl + '/myOrders');
+  }
+
+  // to admin
+  getAllOrders(): Observable<IOrderResponse[]>{
+    return this.http.get<IOrderResponse[]>(this.baseUrl);
   }
 
   createOrder(order: IOrderRequest): Observable<IOrderResponse> {

@@ -1,6 +1,11 @@
-<div class="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between w-[800px]">
-  <form class="bg-white shadow-md rounded-lg flex-1 px-4 md:px-10 py-10 space-y-5">
-    
+<div
+  class="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between w-[800px]"
+>
+  <form
+    class="bg-white shadow-md rounded-lg flex-1 px-4 md:px-10 py-10 space-y-5"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
     <div>
       <p class="text-base font-medium">Product Image</p>
       <div class="flex flex-wrap items-center gap-3 mt-2">
@@ -8,8 +13,8 @@
           <input
             accept="image/png, image/jpeg image/jpg"
             id="image0"
-            hidden
             type="file"
+            (change)="onFileSelected($event)"
           />
           <img
             class="max-w-24 cursor-pointer"
@@ -23,23 +28,29 @@
     </div>
 
     <div class="flex flex-col gap-1">
-      <label class="text-base font-medium" for="product-name">Product Name</label>
+      <label class="text-base font-medium" for="product-name"
+        >Product Name</label
+      >
       <input
         id="product-name"
         placeholder="Type here"
         class="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 w-full"
         required
         type="text"
+        formControlName="title"
       />
     </div>
 
     <div class="flex flex-col gap-1">
-      <label class="text-base font-medium" for="product-description">Product Description</label>
+      <label class="text-base font-medium" for="product-description"
+        >Product Description</label
+      >
       <textarea
         id="product-description"
         rows="4"
         class="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 resize-none w-full"
         placeholder="Type here"
+        formControlName="description"
       ></textarea>
     </div>
 
@@ -48,34 +59,37 @@
       <select
         id="category"
         class="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 w-full"
+        formControlName="categoryId"
       >
         <option value="">Select Category</option>
-        <option value="Vegetables">Vegetables</option>
-        <option value="Fruits">Fruits</option>
-        <option value="Drinks">Drinks</option>
-        <option value="Instant">Instant</option>
-        <option value="Dairy">Dairy</option>
-        <option value="Bakery">Bakery</option>
-        <option value="Grains">Grains</option>
+        <option value="1">Vegetables</option>
+        <option value="2">Fruits</option>
+        <option value="3">Drinks</option>
+        <option value="4">Instant</option>
+        <option value="5">Dairy</option>
+        <option value="6">Bakery</option>
+        <option value="7">Grains</option>
       </select>
     </div>
 
     <div class="flex items-center gap-5 flex-wrap">
       <div class="flex-1 flex flex-col gap-1">
-        <label class="text-base font-medium" for="product-price">Product Price</label>
+        <label class="text-base font-medium" for="product-price"
+          >Product Price</label
+        >
         <input
           id="product-price"
           placeholder="0"
           class="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 w-full"
           required
           type="number"
+          formControlName="price"
         />
       </div>
     </div>
 
-    <button class="w-full py-2.5 bg-primary text-white font-medium rounded">
+    <button class="w-full py-2.5 bg-primary text-white font-medium rounded" type="submit">
       ADD
     </button>
-    
   </form>
 </div>

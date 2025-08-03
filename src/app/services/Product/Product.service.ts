@@ -26,8 +26,16 @@ export class ProductService {
     );
   }
 
-  addProduct(product: Product) {
-    return this.http.post(this.baseUrl, product);
+  addProduct(product: any, image: File): Observable<any> {
+    const formData = new FormData();
+
+    formData.append('Title', product.title);
+    formData.append('Description', product.description);
+    formData.append('Price', product.price.toString());
+    formData.append('CategoryId', product.categoryId.toString());
+    formData.append('image', image);
+
+    return this.http.post(`${this.baseUrl}`, formData);
   }
 
   updateProduct(id: number, product: Product) {

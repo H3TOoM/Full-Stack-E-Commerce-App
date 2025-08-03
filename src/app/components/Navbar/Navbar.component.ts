@@ -58,7 +58,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this._Auth.logout(); // دي اللي ضفناها في AuthService
+    this._Auth.logout(); 
     this.closeMobileMenu();
   }
 }

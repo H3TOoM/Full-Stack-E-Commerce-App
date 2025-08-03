@@ -1,3 +1,42 @@
-<p>
-  AllOrders works!
-</p>
+<div class="no-scrollbar flex-1 h-[95vh] overflow-y-scroll">
+  <div class="md:p-10 p-4 space-y-4">
+    <h2 class="text-lg font-medium">Orders List</h2>
+
+    @for (order of orders; track order.id) {
+    <div
+      class="flex flex-col md:items-center md:flex-row gap-10 justify-between p-5 w-[1000px] rounded-md border border-gray-300"
+    >
+      <div class="flex gap-5 max-w-80">
+        <img
+          class="w-16 h-16 object-cover"
+          alt="box_icon"
+          src="/assets/box_icon.svg"
+        />
+        <div>
+
+
+          @for (item of order.orderItems; track item.productId) {
+          <div class="flex flex-col">
+            <p class="font-medium">
+              {{item.product?.title}} <span class="text-primary">x {{item.quantity}}</span>
+            </p>
+          </div>
+        }
+
+        </div>
+      </div>
+
+      
+      <p class="font-medium text-lg my-auto">${{order.totalAmount}}</p>
+      <div class="flex flex-col text-sm md:text-base text-black/60">
+        <p>Method: COD</p>
+        <p>Date: {{order.orderDate | date }}</p>
+        <p>Payment: {{order.status}}</p>
+      </div>
+    </div>
+  }
+
+
+  
+  </div>
+</div>

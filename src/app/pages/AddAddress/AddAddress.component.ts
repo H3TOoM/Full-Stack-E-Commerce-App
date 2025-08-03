@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-AddAddress',
   templateUrl: './AddAddress.component.html',
   styleUrls: ['./AddAddress.component.css'],
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class AddAddressComponent implements OnInit {
   constructor(
@@ -43,21 +43,18 @@ export class AddAddressComponent implements OnInit {
           this.addresses.push(res);
 
           Swal.fire({
-        title: 'Added Successfully',
-        icon: 'success',
-        timer: 1000,
-        showConfirmButton: false,
-      }).then(() => {
-        this._Router.navigate(['/cart']);
-      });
-
+            title: 'Added Successfully',
+            icon: 'success',
+            timer: 1000,
+            showConfirmButton: false,
+          }).then(() => {
+            this._Router.navigate(['/cart']);
+          });
         },
         error: (err) => console.log(err),
       });
-
-    }
-    else{
-      console.log("form is not invalid");
+    } else {
+      console.log('form is not invalid');
     }
   }
 
@@ -71,5 +68,4 @@ export class AddAddressComponent implements OnInit {
       error: (err) => console.log(err),
     });
   }
-
 }

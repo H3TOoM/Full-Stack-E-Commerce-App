@@ -9,7 +9,6 @@ import { MyOrdersComponent } from './pages/MyOrders/MyOrders.component';
 import { SellerComponent } from './Admin/pages/Seller/Seller.component';
 import { AddProductComponent } from './Admin/pages/AddProduct/AddProduct.component';
 import { ProductListComponent } from './Admin/pages/ProductList/ProductList.component';
-import { EditProductComponent } from './Admin/pages/EditProduct/EditProduct.component';
 import { AllOrdersComponent } from './Admin/pages/AllOrders/AllOrders.component';
 
 export const routes: Routes = [
@@ -28,7 +27,6 @@ export const routes: Routes = [
     children: [
       { path: '', component: AddProductComponent }, // default
       { path: 'product-list', component: ProductListComponent },
-      { path: 'edit-product/:id', component: EditProductComponent },
       { path: 'all-orders', component: AllOrdersComponent },
     ],
   },
