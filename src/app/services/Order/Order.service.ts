@@ -10,7 +10,7 @@ import { IOrderResponse } from '../../models/IOrderResponse';
 export class OrderService {
   constructor(private http: HttpClient) {}
 
-  baseUrl: string = 'http://localhost:5180/api/Order';
+  baseUrl: string = 'http://e-commerce-fgf.runasp.net/api/Order';
 
 
 

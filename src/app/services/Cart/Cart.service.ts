@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
 export class CartService {
   constructor(private http: HttpClient) {}
 
-  baseUrl: string = 'http://localhost:5180/api/Cart';
+  baseUrl: string = 'http://e-commerce-fgf.runasp.net/api/Cart';
 
   private cartCount = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCount.asObservable();

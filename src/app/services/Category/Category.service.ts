@@ -9,7 +9,7 @@ import { Category } from '../../models/Category';
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'http://localhost:5180/api/Category';
+  baseUrl = 'http://e-commerce-fgf.runasp.net/api/Category';
 
   getCategories():Observable<Category[]> {
     return this.http.get<Category[]>(this.baseUrl);

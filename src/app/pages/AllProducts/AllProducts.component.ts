@@ -40,6 +40,7 @@ export class AllProductsComponent implements OnInit {
     this._ProductService.getProducts().subscribe({
       next: (response: any) => {
         this.products = response;
+        // console.log(this.products)
       },
       error: (error: any) => {
         console.error('Error fetching products:', error);

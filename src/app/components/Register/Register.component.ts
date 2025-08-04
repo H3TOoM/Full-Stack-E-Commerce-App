@@ -91,6 +91,7 @@ export class RegisterComponent implements OnInit {
               title: 'Registration Successful',
               icon: 'success',
               showConfirmButton: false,
+              timer:1000
             }).then(() => {
               this.closeForm();
               this._Auth.setLoginStatus(true);
@@ -109,6 +110,7 @@ export class RegisterComponent implements OnInit {
               title: 'Registration Failed',
               icon: 'error',
               showConfirmButton: false,
+              timer:1000
             });
             console.error('Registration failed', error);
           },
@@ -134,6 +136,7 @@ export class RegisterComponent implements OnInit {
               title: 'Login Successful',
               icon: 'success',
               showConfirmButton: false,
+              timer:1000
             }).then(() => {
               this.closeForm();
             });
@@ -150,6 +153,7 @@ export class RegisterComponent implements OnInit {
               title: 'Login Failed',
               icon: 'error',
               showConfirmButton: false,
+              timer:1000
             });
           },
         });
@@ -163,6 +167,7 @@ export class RegisterComponent implements OnInit {
         title: 'Form Is Invalid',
         icon: 'error',
         showConfirmButton: false,
+        timer:1000
       });
     }
     this.cdr.detectChanges();

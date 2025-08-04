@@ -39,6 +39,8 @@ export class AddProductComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid && this.selectedImage) {
+
+      console.log("called")
       this._ProductService
         .addProduct(this.form.value, this.selectedImage)
         .subscribe({

@@ -3,6 +3,7 @@ import { ProductService } from '../../../services/Product/Product.service';
 import { Product } from '../../../models/Product';
 import { CategoryService } from '../../../services/Category/Category.service';
 import Swal from 'sweetalert2';
+import { Category } from '../../../models/Category';
 
 @Component({
   selector: 'app-ProductList',
@@ -17,9 +18,11 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    this.loadCategories();
   }
 
   products!: Product[];
+  categoriesMap = new Map<number, string>();
 
   getProducts() {
     this._ProductService.getProducts().subscribe({
@@ -31,13 +34,19 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  getCategory(id: number) {
-    this._CategoryService.getCategoryById(id).subscribe({
-      next: (res) => {
-        return res;
+  loadCategories() {
+    this._CategoryService.getCategories().subscribe({
+      next: (categories: Category[]) => {
+        categories.forEach((cat: Category) =>
+          this.categoriesMap.set(cat.id, cat.name)
+        );
       },
       error: (err) => console.log(err),
     });
+  }
+
+  getCategoryName(categoryId: number): string {
+    return this.categoriesMap.get(categoryId) || 'Unknown';
   }
 
   deleteProduct(id: number) {

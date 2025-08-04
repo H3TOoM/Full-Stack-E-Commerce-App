@@ -12,7 +12,7 @@
       class="mt-4 md:w-64 max-md:w-55 w-full h-10 px-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
     >
       <option value="0">Filter By Category</option>
-      <option value="vegitable">Vegetables</option>
+      <option value="vegetables">Vegetables</option>
       <option value="fruits">Fruits</option>
       <option value="drinks">Cold Drinks</option>
       <option value="instant">Instant Food</option>
@@ -28,13 +28,12 @@
     @for (prd of products; track prd.id) {
     <div
       class="border border-gray-500/20 rounded-md max-w-54 md:px-4 px-3 py-2"
-      
     >
       <div class="group cursor-pointer flex items-center justify-center py-2">
         <img
           class="group-hover:scale-105 transition max-w-26 md:max-w-36"
           alt=""
-          [src]="'http://localhost:5180/' + prd?.imageUrl"
+          [src]="'http://e-commerce-fgf.runasp.net' + prd?.imageUrl"
           (click)="goTProductDetails(prd.id)"
         />
       </div>

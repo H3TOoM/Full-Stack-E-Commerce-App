@@ -8,8 +8,8 @@ import { Product } from '../../models/Product';
   providedIn: 'root',
 })
 export class ProductService {
-  baseUrl: string = 'http://localhost:5180/api/Product';
-  cartUrl: string = 'http://localhost:5180/api/Cart/add';
+  baseUrl: string = 'http://e-commerce-fgf.runasp.net/api/Product';
+  cartUrl: string = 'http://e-commerce-fgf.runasp.net/api/Cart/add';
   constructor(private http: HttpClient) {}
 
   getProducts() :Observable<Product[]>{

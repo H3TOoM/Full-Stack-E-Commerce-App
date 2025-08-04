@@ -14,9 +14,10 @@ export class AllOrdersComponent implements OnInit,AfterViewInit {
   constructor(private _OrderService:OrderService) { }
 
   ngOnInit() {
+    this.getOrders()
+
   }
   ngAfterViewInit() {
-      this.getOrders()
   }
 
 
@@ -25,10 +26,9 @@ export class AllOrdersComponent implements OnInit,AfterViewInit {
       this._OrderService.getAllOrders().subscribe({
         next: (res) => {
           this.orders = res;
-          // console.log(this.orders)
+          console.log(this.orders)
         },
         error: (err) => console.log(err),
       });
     }
-
 }

@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  baseUrl = 'http://localhost:5180/api/Auth';
+  baseUrl = 'http://e-commerce-fgf.runasp.net/api/Auth';
   isFormOpen: boolean = false;
   isAdmin: boolean = false;
   constructor(private http: HttpClient) {}

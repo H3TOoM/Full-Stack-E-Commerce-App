@@ -13,30 +13,24 @@
           src="/assets/box_icon.svg"
         />
         <div>
-
-
           @for (item of order.orderItems; track item.productId) {
           <div class="flex flex-col">
             <p class="font-medium">
-              {{item.product?.title}} <span class="text-primary">x {{item.quantity}}</span>
+              {{ item.product?.title }}
+              <span class="text-primary">x {{ item.quantity }}</span>
             </p>
           </div>
-        }
-
+          }
         </div>
       </div>
 
-      
-      <p class="font-medium text-lg my-auto">${{order.totalAmount}}</p>
+      <p class="font-medium text-lg my-auto">${{ order.totalAmount }}</p>
       <div class="flex flex-col text-sm md:text-base text-black/60">
         <p>Method: COD</p>
-        <p>Date: {{order.orderDate | date }}</p>
-        <p>Payment: {{order.status}}</p>
+        <p>Date: {{ order.orderDate | date }}</p>
+        <p>Payment: {{ order.status }}</p>
       </div>
     </div>
-  }
-
-
-  
+    }
   </div>
 </div>
