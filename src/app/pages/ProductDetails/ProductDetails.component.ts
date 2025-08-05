@@ -30,6 +30,8 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
   }
 
   ngAfterViewInit() {
+
+   
       
   }
 

@@ -16,8 +16,9 @@
       <img
         class="group-hover:scale-105 transition max-w-26 md:max-w-36"
         alt=""
-        src="http://localhost:5180/{{ prd.imageUrl }}"
-        (click)="goTProductDetails(prd.id)"
+        [src]="
+        'http://e-commerce-fgf.runasp.net' + prd.imageUrl
+      "        (click)="goTProductDetails(prd.id)"
       />
     </div>
     <div class="text-gray-500/60 text-sm">

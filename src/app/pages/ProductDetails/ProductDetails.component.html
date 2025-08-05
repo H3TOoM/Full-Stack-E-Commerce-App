@@ -7,14 +7,18 @@
       >
         <img
           alt=""
-          src="http://localhost:5180/{{ product.imageUrl }}"
+          [src]="
+                'http://e-commerce-fgf.runasp.net' + product?.imageUrl
+              "
           />
       </div>
     </div>
     <div class="border border-gray-500/30 max-w-100 rounded overflow-hidden">
       <img
         alt="Selected product"
-          src="http://localhost:5180/{{ product.imageUrl }}"
+          [src]="
+                'http://e-commerce-fgf.runasp.net' + product?.imageUrl
+              "
       />
     </div>
   </div>

@@ -84,6 +84,7 @@
             {{ address.country }},{{ address.city }},{{ address.street }}
           </p>
           <a
+            *ngIf="address"
             routerLink="/add-address"
             class="text-primary hover:underline cursor-pointer"
           >

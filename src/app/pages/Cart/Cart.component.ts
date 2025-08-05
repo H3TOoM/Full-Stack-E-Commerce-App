@@ -92,7 +92,7 @@ export class CartComponent implements OnInit {
           showConfirmButton: false,
         });
 
-        // Update Ui
+        // Update UI
         this.getCartItem();
 
         this._CartService.setCartCount(0);
